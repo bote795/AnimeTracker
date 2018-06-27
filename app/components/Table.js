@@ -34,15 +34,17 @@ class AnimeTable extends React.Component {
     }
     render() {
         const divStyle = { width: '100px' };
-
+        const ANIME_NAME = browser.i18n.getMessage("appAnimeName");
+        const EPISODE = browser.i18n.getMessage("appEpisode");
+        const EDIT = browser.i18n.getMessage("appEdit");
         const { animeList } = this.state;
         return <div>
             <table>     
               <thead>
                 <tr>
-                  <th>Anime Name</th>
-                        <th style={divStyle}>Episode</th>
-                  <th>Edit</th>
+                  <th>{ANIME_NAME}</th>
+                   <th style={divStyle}>{EPISODE}</th>
+                   <th>{EDIT}</th>
                 </tr>
               </thead>
               <tbody>

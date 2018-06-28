@@ -19,5 +19,17 @@
   },
   "appEdit":{
     "message": "Edit"
+  },
+  "appEditAnimeInputName":{
+    "message": "Name"
+  },
+  "appEditAnimeInputEp":{
+    "message": "Episode"
+  },
+  "appEditAnimeInpuHomeUrl":{
+    "message": "Home URL"
+  },
+  "appEditAnimeInputTotalEps":{
+    "message": "Total Episodes"
   }
 }

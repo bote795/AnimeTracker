@@ -7,29 +7,33 @@ export class EditAnime extends Component {
            this.setState(() => ({ [name]: value }));
          };
          render() {
+           const NAME = browser.i18n.getMessage("appEditAnimeInputName");
+           const EPISODE = browser.i18n.getMessage("appEditAnimeInputEp");
+           const HOMEURL = browser.i18n.getMessage("appEditAnimeInpuHomeUrl");
+           const TOTALEPS = browser.i18n.getMessage("appEditAnimeInputTotalEps");
            const {name , ep, home, totaleps} = this.state;
            return (<div>
              <FormGroup 
               inputId="name" 
-              title="Name" 
+              title={NAME} 
               value={name} 
               handleInputChange={this.handleInputChange}
              />
              <FormGroup 
               inputId="ep" 
-              title="Ep" 
+               title={EPISODE} 
               value={ep} 
               handleInputChange={this.handleInputChange} 
              />
              <FormGroup 
               inputId="home" 
-              title="Home url" 
+               title={HOMEURL}
               value={home} 
               handleInputChange={this.handleInputChange}
              />
              <FormGroup
               inputId="totaleps" 
-              title="Total Eps" 
+               title={TOTALEPS}
               value={totaleps} 
               handleInputChange={this.handleInputChange}
              />

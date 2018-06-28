@@ -2,11 +2,18 @@ import React, { Component } from 'react'
 
 export default class FormGroup extends Component {
   render() {
-      const {title, value} = this.props;
+    const { inputId, title, value, handleInputChange} = this.props;
     return (
       <div>
-            {title}:
-            <input type="text" value={value} />
+        <label className='label' htmlFor={inputId}>{title}</label>
+        <input
+          value={value}
+          onChange={handleInputChange}
+          name={inputId}
+          className='input'
+          id={inputId}
+          type='text'
+        />
       </div>
     )
   }

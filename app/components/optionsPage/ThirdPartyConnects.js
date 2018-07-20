@@ -6,7 +6,7 @@ export default class ThirdPartyConnects extends Component {
       <div>
         Third party connects
         <button>Anilist Connect</button>
-        <button>Anilist Connect</button>
+        <button>KitsuKitsu Connect</button>
       </div>
     )
   }

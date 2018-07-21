@@ -19,11 +19,11 @@ export default class ShowEpisode extends Component {
     const { episode } = this.props;
     return (
       <ContentEditable
-        style={spanStyle}
+        className="episode-content-editable"
         html={episode} // innerHTML of the editable div
         disabled={false} // use true to disable edition
         onChange={this.episodeChange} // handle innerHTML change
       />
     );
   }
-};
+}

@@ -20,11 +20,17 @@ const styles = theme => ({
 
 class AnimeTable extends React.Component {
   state = {
+    //TODO: in memory use epsiode as string
     animeList: [
-      { Name: "test", id: 1, episode: 4000 },
-      { Name: "test the cool kids blah blah", id: 2, episode: 4 },
-      { Name: "test2", id: 3, episode: 400 },
-      { Name: "test2", id: 5, episode: 40 }
+      { Name: "test", id: 1, episode: "4000" },
+      { Name: "test the cool kids blah blah", id: 2, episode: "4" },
+      { Name: "test2", id: 3, episode: "400" },
+      { Name: "test2", id: 4, episode: "400" },
+      { Name: "test2", id: 6, episode: "400" },
+      { Name: "test2", id: 7, episode: "400" },
+      { Name: "test2", id: 8, episode: "400" },
+      { Name: "test2", id: 9, episode: "400" },
+      { Name: "test2", id: 5, episode: "40" }
     ]
   };
 
@@ -37,7 +43,7 @@ class AnimeTable extends React.Component {
             anime.id !== action.id
               ? anime
               : Object.assign({}, anime, {
-                  episode: Number(anime.episode) + action.value
+                  episode: String(Number(anime.episode) + action.value)
                 })
         );
       case "name":
@@ -55,7 +61,7 @@ class AnimeTable extends React.Component {
             anime.id !== action.id
               ? anime
               : Object.assign({}, anime, {
-                  episode: action.value
+                  episode: String(action.value)
                 })
         );
       case "delete":

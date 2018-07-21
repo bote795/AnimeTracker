@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-
+import ShowEpisode from "./ShowEpisode";
 export default class EpisodeEdit extends Component {
   add = e => {
     e.preventDefault();
@@ -23,10 +23,10 @@ export default class EpisodeEdit extends Component {
       value: -1
     };
 
-    return this.props.edit(action);
+    return edit(action);
   };
   render() {
-    const { episode } = this.props;
+    const { id, episode, edit } = this.props;
     const spanStyle = {
       minWidth: "30px",
       display: "inline-block",
@@ -37,7 +37,8 @@ export default class EpisodeEdit extends Component {
         <IconButton onClick={this.subtract} color="primary">
           <Icon>remove_circle</Icon>
         </IconButton>
-        <span style={spanStyle}>{episode}</span>
+        {/* <span style={spanStyle}>{episode}</span> */}
+        <ShowEpisode id={id} episode={episode} edit={edit} />
         <IconButton onClick={this.add} color="primary">
           <Icon>add_circle</Icon>
         </IconButton>

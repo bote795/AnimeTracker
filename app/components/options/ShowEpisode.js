@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
 export default class ShowEpisode extends Component {
   episodeChange = e => {
+    //TODO: Validate that this is a number 
     const { id, edit } = this.props;
     const action = {
       type: "episode",

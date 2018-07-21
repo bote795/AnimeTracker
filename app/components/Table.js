@@ -20,7 +20,7 @@ const styles = theme => ({
 
 class AnimeTable extends React.Component {
   state = {
-    //TODO: in memory use epsiode as string
+    //TODO: in memory use epsiode as string then on save save it as number
     animeList: [
       { Name: "test", id: 1, episode: "4000" },
       { Name: "test the cool kids blah blah", id: 2, episode: "4" },

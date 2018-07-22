@@ -25,7 +25,8 @@ export default function AnimeEntry({ animelist, edit }) {
       </TableCell>
       <TableCell>
         <ContentEditable
-          html={Name} // innerHTML of the editable div
+          placeholder={"Name"}
+          html={Name || ""} // innerHTML of the editable div
           disabled={false} // use true to disable edition
           onChange={nameChange} // handle innerHTML change
         />

@@ -3,3 +3,8 @@
     display: inline-block;
     text-align: center;
 }
+[contenteditable=true]:empty:before { 
+    content: attr(placeholder); 
+    display: inline-block; 
+    color: #aaa; 
+}

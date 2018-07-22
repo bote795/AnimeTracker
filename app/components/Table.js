@@ -98,6 +98,11 @@ class AnimeTable extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
+            <AnimeEntry
+                  key="0"
+                  animelist=""
+                  edit={this.onEdit}
+                />
               {animeList.map(anime => (
                 <AnimeEntry
                   key={anime.id}

@@ -34,12 +34,12 @@ export default class EpisodeEdit extends Component {
     };
     return (
       <div>
-        <IconButton onClick={this.subtract} color="primary">
+        <IconButton onClick={this.subtract} disabled={!id} color="primary">
           <Icon>remove_circle</Icon>
         </IconButton>
         {/* <span style={spanStyle}>{episode}</span> */}
         <ShowEpisode id={id} episode={episode} edit={edit} />
-        <IconButton onClick={this.add} color="primary">
+        <IconButton onClick={this.add} disabled={!id} color="primary">
           <Icon>add_circle</Icon>
         </IconButton>
       </div>

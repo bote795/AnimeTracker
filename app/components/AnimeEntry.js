@@ -30,6 +30,7 @@ export default function AnimeEntry({ animelist, edit }) {
     };
     return edit(action);
   };
+  const ANIME_NAME = browser.i18n.getMessage("appEditAnimeInputName");
   const { name, episode, id } = animelist;
   const divStyle = { width: "150px" };
   let icon;
@@ -50,7 +51,7 @@ export default function AnimeEntry({ animelist, edit }) {
       </TableCell>
       <TableCell>
         <ContentEditable
-          placeholder={"Name"}
+          placeholder={ANIME_NAME}
           html={name || ""} // innerHTML of the editable div
           disabled={false} // use true to disable edition
           onChange={nameChange} // handle innerHTML change

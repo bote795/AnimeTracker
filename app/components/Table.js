@@ -94,7 +94,6 @@ class AnimeTable extends React.Component {
     const divStyle = { width: "100px", padding: "none" };
     const ANIME_NAME = browser.i18n.getMessage("appAnimeName");
     const EPISODE = browser.i18n.getMessage("appEpisode");
-    const EDIT = browser.i18n.getMessage("appEdit");
     const { animeList } = this.state;
     const { classes } = this.props;
 
@@ -111,7 +110,6 @@ class AnimeTable extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* <AnimeEntry id={0} animelist="" edit={this.onEdit} /> */}
               <AddEntry edit={this.onEdit} />
               {animeList.map(anime => (
                 <AnimeEntry

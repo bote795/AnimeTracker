@@ -5,6 +5,8 @@ import DeleteEntry from "./options/DeleteEntry";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import ContentEditable from "react-contenteditable";
+import AddCircle from "@material-ui/icons/AddCircle";
+import IconButton from "@material-ui/core/IconButton";
 
 export default function AnimeEntry({ animelist, edit }) {
   let nameChange = e => {
@@ -14,10 +16,33 @@ export default function AnimeEntry({ animelist, edit }) {
       id,
       value: e.target.value
     };
+    console.log(action);
     return edit(action);
   };
-  const { Name, episode, id } = animelist;
+  let addEntry = e => {
+    const { name, episode } = animelist;
+    const action = {
+      type: "add_entry",
+      value: {
+        name: name,
+        episode: episode
+      }
+    };
+    return edit(action);
+  };
+  const { name, episode, id } = animelist;
   const divStyle = { width: "150px" };
+  let icon;
+  if (!id) {
+    icon = (
+      <IconButton onClick={addEntry} aria-label="add_circle">
+        <AddCircle color="error" />
+      </IconButton>
+    );
+  } else {
+    icon = <DeleteEntry id={id} edit={edit} />;
+  }
+
   return (
     <TableRow key={id}>
       <TableCell padding="none" component="th" scope="row">
@@ -26,7 +51,7 @@ export default function AnimeEntry({ animelist, edit }) {
       <TableCell>
         <ContentEditable
           placeholder={"Name"}
-          html={Name || ""} // innerHTML of the editable div
+          html={name || ""} // innerHTML of the editable div
           disabled={false} // use true to disable edition
           onChange={nameChange} // handle innerHTML change
         />
@@ -34,9 +59,7 @@ export default function AnimeEntry({ animelist, edit }) {
       <TableCell padding="none" style={divStyle}>
         <EpisodeEdit id={id} episode={episode} edit={edit} />
       </TableCell>
-      <TableCell padding="none">
-        <DeleteEntry id={id} edit={edit} />
-      </TableCell>
+      <TableCell padding="none">{icon}</TableCell>
     </TableRow>
   );
 }

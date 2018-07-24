@@ -4,13 +4,16 @@ import EditIcon from "@material-ui/icons/Edit";
 
 class Options extends React.Component {
   render() {
-    return (
-      <div>
+    const { id } = this.props;
+    let icon;
+    if (id) {
+      icon = (
         <IconButton aria-label="Edit">
           <EditIcon />
         </IconButton>
-      </div>
-    );
+      );
+    }
+    return <div>{icon}</div>;
   }
 }
 

@@ -1,5 +1,4 @@
 import React from "react";
-import AnimeEntry from "./AnimeEntry";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,7 +6,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import uuid from "uuid/v4";
 
+import AnimeEntry from "./AnimeEntry";
+import AddEntry from "./popupPage/AddEntry";
 const styles = theme => ({
   root: {
     width: "100%",
@@ -22,15 +24,15 @@ class AnimeTable extends React.Component {
   state = {
     //TODO: in memory use epsiode as string then on save save it as number
     animeList: [
-      { Name: "test", id: 1, episode: "4000" },
-      { Name: "test the cool kids blah blah", id: 2, episode: "4" },
-      { Name: "test2", id: 3, episode: "400" },
-      { Name: "test2", id: 4, episode: "400" },
-      { Name: "test2", id: 6, episode: "400" },
-      { Name: "test2", id: 7, episode: "400" },
-      { Name: "test2", id: 8, episode: "400" },
-      { Name: "test2", id: 9, episode: "400" },
-      { Name: "test2", id: 5, episode: "40" }
+      { name: "test", id: uuid(), episode: "4000" },
+      { name: "test the cool kids blah blah", id: uuid(), episode: "4" },
+      { name: "test2", id: uuid(), episode: "400" },
+      { name: "test2", id: uuid(), episode: "400" },
+      { name: "test2", id: uuid(), episode: "400" },
+      { name: "test2", id: uuid(), episode: "400" },
+      { name: "test2", id: uuid(), episode: "400" },
+      { name: "test2", id: uuid(), episode: "400" },
+      { name: "test2", id: uuid(), episode: "40" }
     ]
   };
 
@@ -69,6 +71,17 @@ class AnimeTable extends React.Component {
         return state.filter(anime => {
           return anime.id !== action.id;
         });
+      case "add_entry":
+        const { name, episode } = action.value;
+        const id = uuid();
+        return [
+          {
+            id,
+            name,
+            episode
+          },
+          ...state
+        ];
     }
   }
   onEdit = action => {
@@ -98,11 +111,8 @@ class AnimeTable extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-            <AnimeEntry
-                  key="0"
-                  animelist=""
-                  edit={this.onEdit}
-                />
+              {/* <AnimeEntry id={0} animelist="" edit={this.onEdit} /> */}
+              <AddEntry edit={this.onEdit} />
               {animeList.map(anime => (
                 <AnimeEntry
                   key={anime.id}

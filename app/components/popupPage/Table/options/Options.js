@@ -1,6 +1,7 @@
 import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
+import { Link } from "react-router-dom";
 
 class Options extends React.Component {
   render() {
@@ -8,7 +9,7 @@ class Options extends React.Component {
     let icon;
     if (id) {
       icon = (
-        <IconButton aria-label="Edit">
+        <IconButton component={Link} to="/edit" aria-label="Edit">
           <EditIcon />
         </IconButton>
       );

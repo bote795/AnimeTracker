@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AnimeEntry from "../AnimeEntry";
+import AnimeEntry from "./AnimeEntry";
 
 export default class AddEntry extends Component {
   state = {

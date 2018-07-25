@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import uuid from "uuid/v4";
 
 import AnimeEntry from "./AnimeEntry";
-import AddEntry from "./popupPage/AddEntry";
+import AddEntry from "./AddEntry";
 const styles = theme => ({
   root: {
     width: "100%",

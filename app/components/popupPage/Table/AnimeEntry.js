@@ -1,12 +1,13 @@
 import React from "react";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import AddCircle from "@material-ui/icons/AddCircle";
+import IconButton from "@material-ui/core/IconButton";
+import ContentEditable from "react-contenteditable";
+
 import Options from "./options/Options";
 import EpisodeEdit from "./options/EpisodeEdit";
 import DeleteEntry from "./options/DeleteEntry";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import ContentEditable from "react-contenteditable";
-import AddCircle from "@material-ui/icons/AddCircle";
-import IconButton from "@material-ui/core/IconButton";
 
 export default function AnimeEntry({ animelist, edit }) {
   let nameChange = e => {

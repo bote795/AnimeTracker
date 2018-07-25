@@ -31,5 +31,17 @@
   },
   "appEditAnimeInputTotalEps":{
     "message": "Total Episodes"
+  },
+  "appPOPUPDELETEName":{
+    "message": "Are you sure you want to remove the entry"
+  },
+  "appPOPUPDELETEBody":{
+    "message": "This won't remove it from your provider only locally on the extension"
+  },
+  "PopupCancel":{
+    "message": "Cancel"
+  },
+  "PopupDelete":{
+    "message": "Delete"
   }
 }

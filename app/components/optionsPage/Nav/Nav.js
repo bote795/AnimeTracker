@@ -11,6 +11,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import HelpIcon from "@material-ui/icons/Help";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -27,7 +28,7 @@ class Nav extends Component {
     return (
       <div className={classes.root}>
         <List component="nav">
-          <ListItem button>
+          <ListItem button component={Link} to="/">
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
@@ -48,14 +49,14 @@ class Nav extends Component {
             <ListItemText primary="Anime" />
           </ListItem>
 
-          <ListItem button>
+          <ListItem button component={Link} to="/feedback">
             <ListItemIcon>
               <FeedbackIcon />
             </ListItemIcon>
             <ListItemText primary="Feedback" />
           </ListItem>
 
-          <ListItem button>
+          <ListItem button component={Link} to="/support">
             <ListItemIcon>
               <HelpIcon />
             </ListItemIcon>

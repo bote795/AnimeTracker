@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import ThirdPartyConnects from "./ThirdPartyConnects";
+import { MemoryRouter as Router } from "react-router-dom";
 
-import Nav from "./Nav/Nav";
+import Nav from "./Nav/LeftNav";
 export default class App extends Component {
   render() {
     return (
       <div>
-        <Nav />
-        This is the options
-        <ThirdPartyConnects />
+        <Router>
+          <Nav />
+        </Router>
       </div>
     );
   }

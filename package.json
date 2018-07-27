@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "react": "^16.4.1",
+    "react-devtools": "^3.2.3",
     "react-dom": "^16.4.1",
     "webextension-toolbox": "latest"
   },

@@ -17,6 +17,9 @@ import Feedback from "../Feedback";
 import Settings from "../Settings";
 import Support from "../Support";
 
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -74,6 +77,12 @@ class ResponsiveDrawer extends React.Component {
         <NavListItems />
       </div>
     );
+    const header = ({match}) => {
+        const {tabId} = match.params;
+        return (
+          <p>{tabId.capitalize()}</p>
+        )
+    }
 
     return (
       <div className={classes.root}>
@@ -89,10 +98,12 @@ class ResponsiveDrawer extends React.Component {
             </IconButton>
             <Typography variant="title" color="inherit" noWrap>
             <Switch>
-                <Route exact path="/" component={Settings} />
-                <Route exact path="/feedback" component={Feedback} />
-                <Route exact path="/support" component={Support} />
-                <Route render={() => <p>Not Found</p>} />
+                <Route path="/:tabId" component={header} />
+                <Route
+                exact
+                path="/"
+                render={() => <p>Settings</p> }
+                />
             </Switch>    
             </Typography>
           </Toolbar>

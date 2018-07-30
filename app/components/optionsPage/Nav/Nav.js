@@ -35,20 +35,6 @@ class Nav extends Component {
             <ListItemText primary="Settings" />
           </ListItem>
 
-          <ListItem button>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Integrate" />
-          </ListItem>
-
-          <ListItem button>
-            <ListItemIcon>
-              <NotificationsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Anime" />
-          </ListItem>
-
           <ListItem button component={Link} to="/feedback">
             <ListItemIcon>
               <FeedbackIcon />

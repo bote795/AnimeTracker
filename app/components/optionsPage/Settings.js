@@ -11,7 +11,8 @@ import Switch from "@material-ui/core/Switch";
 const styles = theme => ({
   root: {
     width: "100%",
-    maxWidth: 360,
+    maxWidth: "80%",
+    height: "80%",
     backgroundColor: theme.palette.background.paper
   }
 });
@@ -39,7 +40,7 @@ class Settings extends Component {
 
   render() {
     const { classes } = this.props;
-
+    //TODO: add hover popup for each item
     return (
       <div className={classes.root}>
         <List>

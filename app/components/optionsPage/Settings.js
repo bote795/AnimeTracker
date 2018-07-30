@@ -7,6 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Switch from "@material-ui/core/Switch";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const styles = theme => ({
   root: {
@@ -19,14 +20,20 @@ const styles = theme => ({
 
 class Settings extends Component {
   state = {
-    checked: ["wifi"]
+    checked: ["tab"],
+    loading: false
   };
-
+  toggleLoading = () => {
+    const {loading} = this.state;
+    this.setState({
+      loading: !loading
+    });
+  }
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-
+    this.toggleLoading();
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -36,13 +43,20 @@ class Settings extends Component {
     this.setState({
       checked: newChecked
     });
+    setTimeout(() => {
+      this.toggleLoading();
+  }, 500);
+
+    
   };
 
   render() {
     const { classes } = this.props;
+    const { loading } = this.state;
     //TODO: add hover popup for each item
     return (
       <div className={classes.root}>
+        {loading && <LinearProgress />}
         <List>
           <ListItem>
             <ListItemText primary="Open in a new Tab" />

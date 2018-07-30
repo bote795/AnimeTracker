@@ -9,6 +9,9 @@ import Select from "@material-ui/core/Select";
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField'
+import postFeedback from './../../util/feedback';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 const styles = theme => ({
   root: {
     width: "100%",
@@ -27,22 +30,46 @@ const styles = theme => ({
 class Feedback extends Component {
   state = {
     type: 'bug',
-    body: ""
+    body: "",
+    loading: false
   };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  handleSubmit = () => {
-    console.log(this.state);
+  toggleLoading = () => {
+    const {loading} = this.state;
+    this.setState({
+      loading: !loading
+    });
   }
+  handleSubmit = async () =>{
+    const { type, body } = this.state;
+    console.log(this.state);
+    this.toggleLoading();
+
+    try {
+      const repos = await postFeedback(type, body);
+      this.setState(() => ({ 
+        type: 'bug',
+        body: ""
+      }));
+    }
+    catch(e){
+      console.warn(e);
+    }
+    this.toggleLoading();
+}
   allowButton = () => {
     const { type, body} = this.state;
     return type && !!body;
   }
   render() {
     const { classes } = this.props;
+    const { loading } = this.state;
     return (
+      <div>
+        {loading && <LinearProgress />}
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="type-simple">Type</InputLabel>
@@ -80,6 +107,7 @@ class Feedback extends Component {
         </Button>
         </FormControl>
       </form>
+      </div>
     );
   }
 }

@@ -78,10 +78,14 @@ class ResponsiveDrawer extends React.Component {
     );
     const header = ({match}) => {
         const {tabId} = match.params;
+        const TITLE = browser.i18n.getMessage(`settingsTitle${tabId.capitalize()}`);
+    
         return (
-          <p>{tabId.capitalize()}</p>
+          <p>{TITLE}</p>
         )
     }
+    const TITLE_SETTINGS = browser.i18n.getMessage("settingsTitleSettings");
+
 
     return (
       <div className={classes.root}>
@@ -101,7 +105,7 @@ class ResponsiveDrawer extends React.Component {
                 <Route
                 exact
                 path="/"
-                render={() => <p>Settings</p> }
+                render={() => <p>{TITLE_SETTINGS}</p> }
                 />
             </Switch>    
             </Typography>

@@ -52,5 +52,14 @@
   },
   "settingsTimeElapsed":{
     "message": "Display Time Elapsed Input"
+  },
+  "settingsTitleSettings":{
+    "message": "Settings"
+  },
+  "settingsTitleFeedback":{
+    "message": "Feedback"
+  },
+  "settingsTitleSupport":{
+    "message": "Support"
   }
 }

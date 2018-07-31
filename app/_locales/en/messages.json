@@ -43,5 +43,14 @@
   },
   "PopupDelete":{
     "message": "Delete"
+  },
+  "settingsNewTab":{
+    "message": "Open in a new Tab"
+  },
+  "settingsTotalEpCount":{
+    "message": "Show Total Episode Count"
+  },
+  "settingsTimeElapsed":{
+    "message": "Display Time Elapsed Input"
   }
 }

@@ -53,13 +53,16 @@ class Settings extends Component {
   render() {
     const { classes } = this.props;
     const { loading } = this.state;
+    const NEW_TAB = browser.i18n.getMessage("settingsNewTab");
+    const TOTAL_EP_COUNT = browser.i18n.getMessage("settingsTotalEpCount");
+    const TIME_ELAPSED = browser.i18n.getMessage("settingsTimeElapsed");
     //TODO: add hover popup for each item
     return (
       <div className={classes.root}>
         {loading && <LinearProgress />}
         <List>
           <ListItem>
-            <ListItemText primary="Open in a new Tab" />
+            <ListItemText primary={NEW_TAB} />
             <ListItemSecondaryAction>
               <Switch
                 onChange={this.handleToggle("tab")}
@@ -69,7 +72,7 @@ class Settings extends Component {
           </ListItem>
           
           <ListItem>
-            <ListItemText primary="Show Total Episode Count" />
+            <ListItemText primary={TOTAL_EP_COUNT} />
             <ListItemSecondaryAction>
               <Switch
                 onChange={this.handleToggle("totalEps")}
@@ -79,7 +82,7 @@ class Settings extends Component {
           </ListItem>
           
           <ListItem>
-            <ListItemText primary="Display Time Elapsed" />
+            <ListItemText primary={TIME_ELAPSED} />
             <ListItemSecondaryAction>
               <Switch
                 onChange={this.handleToggle("time")}

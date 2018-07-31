@@ -61,5 +61,23 @@
   },
   "settingsTitleSupport":{
     "message": "Support"
+  },
+  "FeedbackSend":{
+    "message": "send",
+    "description": "The send button text in Feedback page in options"
+  },
+  "FeedbackOptionsBug":{
+    "message": "Bug",
+    "description": "The bug option in Feedback page in options"
+  },
+  "FeedbackOptionsFeature":{
+    "message": "Feature",
+    "description": "The Feature option in Feedback page in options"
+  },
+  "FeedbackOptionsComment":{
+    "message": "Comment To Developer",
+    "description": "The Comment To Developer option in Feedback page in options"
   }
+
+
 }

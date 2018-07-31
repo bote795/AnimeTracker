@@ -67,6 +67,11 @@ class Feedback extends Component {
   render() {
     const { classes } = this.props;
     const { loading } = this.state;
+    const OPTION_BUG = browser.i18n.getMessage("FeedbackOptionsBug");
+    const OPTION_FEATURE = browser.i18n.getMessage("FeedbackOptionsFeature");
+    const OPTION_COMMENT = browser.i18n.getMessage("FeedbackOptionsComment");
+    const BUTTON_SEND = browser.i18n.getMessage("FeedbackSend");
+
     return (
       <div>
         {loading && <LinearProgress />}
@@ -82,9 +87,9 @@ class Feedback extends Component {
               id: "type-simple"
             }}
           >
-            <MenuItem value={'bug'}>bug</MenuItem>
-            <MenuItem value={'feature'}>Feature</MenuItem>
-            <MenuItem value={'comment'}>Comment To Developer</MenuItem>
+            <MenuItem value={'bug'}>{OPTION_BUG}</MenuItem>
+            <MenuItem value={'feature'}>{OPTION_FEATURE}</MenuItem>
+            <MenuItem value={'comment'}>{OPTION_COMMENT}</MenuItem>
           </Select>
           
           <TextField
@@ -103,7 +108,7 @@ class Feedback extends Component {
           />
         <Button disabled={!this.allowButton()} onClick={this.handleSubmit} ariant="contained" color="primary" className={classes.button}>
           Send
-          <Icon className={classes.rightIcon}>send</Icon>
+          <Icon className={classes.rightIcon}>{BUTTON_SEND}</Icon>
         </Button>
         </FormControl>
       </form>

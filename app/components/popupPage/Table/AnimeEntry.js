@@ -9,7 +9,7 @@ import Options from "./options/Options";
 import EpisodeEdit from "./options/EpisodeEdit";
 import DeleteEntry from "./options/DeleteEntry";
 
-export default function AnimeEntry({ animelist, edit }) {
+export default function AnimeEntry({ animelist, edit, timeElapsed }) {
   let nameChange = e => {
     const { id } = animelist;
     const action = {
@@ -17,9 +17,19 @@ export default function AnimeEntry({ animelist, edit }) {
       id,
       value: e.target.value
     };
-    console.log(action);
     return edit(action);
   };
+
+  let fieldChange = type => e => {
+    const { id } = animelist;
+    const action = {
+      type,
+      id,
+      value: e.target.value
+    };
+    return edit(action);
+  }
+
   let addEntry = e => {
     const { name, episode } = animelist;
     const action = {
@@ -32,7 +42,7 @@ export default function AnimeEntry({ animelist, edit }) {
     return edit(action);
   };
   const ANIME_NAME = browser.i18n.getMessage("appEditAnimeInputName");
-  const { name, episode, id } = animelist;
+  const { name, episode, id, time } = animelist;
   const divStyle = { width: "150px" };
   let icon;
   if (!id) {
@@ -53,14 +63,26 @@ export default function AnimeEntry({ animelist, edit }) {
       <TableCell>
         <ContentEditable
           placeholder={ANIME_NAME}
-          html={name || ""} // innerHTML of the editable div
-          disabled={false} // use true to disable edition
-          onChange={nameChange} // handle innerHTML change
+          html={name || ""} 
+          disabled={false} 
+          onChange={fieldChange("name")} 
         />
       </TableCell>
       <TableCell padding="none" style={divStyle}>
         <EpisodeEdit id={id} episode={episode} edit={edit} />
       </TableCell>
+      {timeElapsed && (
+        <TableCell padding="none">
+          <ContentEditable
+            className="episode-content-editable"
+            placeholder="Time"
+            onChange={fieldChange("time")}
+            html={time || ""} // innerHTML of the editable div
+            disabled={false} // use true to disable edition
+          />
+        </TableCell>
+      )}
+
       <TableCell padding="none">{icon}</TableCell>
     </TableRow>
   );

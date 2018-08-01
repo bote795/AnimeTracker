@@ -37,6 +37,13 @@ export default class AddEntry extends Component {
   };
   render() {
     const { anime } = this.state;
-    return <AnimeEntry animelist={anime} edit={this.onEdit} />;
+    const { timeElapsed } = this.props;
+    return (
+      <AnimeEntry
+        animelist={anime}
+        edit={this.onEdit}
+        timeElapsed={timeElapsed}
+      />
+    );
   }
 }

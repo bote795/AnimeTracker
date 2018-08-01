@@ -19,6 +19,9 @@
   },
   "appEdit":{
     "message": "Edit"
+  },  
+  "appTimeLaps":{
+    "message": "Time Lapsed"
   },
   "appEditAnimeInputName":{
     "message": "Name"

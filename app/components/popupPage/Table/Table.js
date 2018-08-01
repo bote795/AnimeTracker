@@ -32,8 +32,9 @@ class AnimeTable extends React.Component {
       { name: "test2", id: uuid(), episode: "400" },
       { name: "test2", id: uuid(), episode: "400" },
       { name: "test2", id: uuid(), episode: "400" },
-      { name: "test2", id: uuid(), episode: "40" }
-    ]
+      { name: "test2", id: uuid(), episode: "40", time: "12:00" }
+    ],
+    timeElapsed: false
   };
 
   editAnime(state = [], action) {
@@ -49,25 +50,17 @@ class AnimeTable extends React.Component {
                 })
         );
       case "name":
-        return state.map(
-          anime =>
-            anime.id !== action.id
-              ? anime
-              : Object.assign({}, anime, {
-                  name: action.value
-                })
-        );
+      case "time":
       case "episode":
         return state.map(
           anime =>
             anime.id !== action.id
               ? anime
               : Object.assign({}, anime, {
-                  episode: String(action.value)
+                  [action.type]: String(action.value)
                 })
         );
       case "delete":
-        console.log("delete ", action.id);
         return state.filter(anime => {
           return anime.id !== action.id;
         });
@@ -94,7 +87,8 @@ class AnimeTable extends React.Component {
     const divStyle = { width: "100px", padding: "none" };
     const ANIME_NAME = browser.i18n.getMessage("appAnimeName");
     const EPISODE = browser.i18n.getMessage("appEpisode");
-    const { animeList } = this.state;
+    const TIME_LAPS = browser.i18n.getMessage("appTimeLaps");
+    const { animeList, timeElapsed } = this.state;
     const { classes } = this.props;
 
     return (
@@ -106,16 +100,20 @@ class AnimeTable extends React.Component {
                 <TableCell padding="none" />
                 <TableCell>{ANIME_NAME}</TableCell>
                 <TableCell style={divStyle}>{EPISODE}</TableCell>
+                {timeElapsed && (
+                  <TableCell padding="none">{TIME_LAPS}</TableCell>
+                )}
                 <TableCell padding="none" />
               </TableRow>
             </TableHead>
             <TableBody>
-              <AddEntry edit={this.onEdit} />
+              <AddEntry edit={this.onEdit} timeElapsed={timeElapsed} />
               {animeList.map(anime => (
                 <AnimeEntry
                   key={anime.id}
                   animelist={anime}
                   edit={this.onEdit}
+                  timeElapsed={timeElapsed}
                 />
               ))}
             </TableBody>

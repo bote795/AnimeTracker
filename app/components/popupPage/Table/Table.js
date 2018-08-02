@@ -27,14 +27,17 @@ class AnimeTable extends React.Component {
       { name: "test", id: uuid(), episode: "4000" },
       { name: "test the cool kids blah blah", id: uuid(), episode: "4" },
       { name: "test2", id: uuid(), episode: "400" },
-      { name: "test2", id: uuid(), episode: "400" },
+      { name: "test2", id: uuid(), episode: "400", totalEps: "100" },
       { name: "test2", id: uuid(), episode: "400" },
       { name: "test2", id: uuid(), episode: "400" },
       { name: "test2", id: uuid(), episode: "400" },
       { name: "test2", id: uuid(), episode: "400" },
       { name: "test2", id: uuid(), episode: "40", time: "12:00" }
     ],
-    timeElapsed: false
+    options: {
+      timeElapsed: false,
+      totalEps: false
+    }
   };
 
   editAnime(state = [], action) {
@@ -52,6 +55,7 @@ class AnimeTable extends React.Component {
       case "name":
       case "time":
       case "episode":
+      case "totalEps":
         return state.map(
           anime =>
             anime.id !== action.id
@@ -88,7 +92,8 @@ class AnimeTable extends React.Component {
     const ANIME_NAME = browser.i18n.getMessage("appAnimeName");
     const EPISODE = browser.i18n.getMessage("appEpisode");
     const TIME_LAPS = browser.i18n.getMessage("appTimeLaps");
-    const { animeList, timeElapsed } = this.state;
+    const { animeList, options } = this.state;
+    const { timeElapsed } = options;
     const { classes } = this.props;
 
     return (
@@ -107,13 +112,13 @@ class AnimeTable extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              <AddEntry edit={this.onEdit} timeElapsed={timeElapsed} />
+              <AddEntry edit={this.onEdit} options={options} />
               {animeList.map(anime => (
                 <AnimeEntry
                   key={anime.id}
                   animelist={anime}
                   edit={this.onEdit}
-                  timeElapsed={timeElapsed}
+                  options={options}
                 />
               ))}
             </TableBody>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-import ShowEpisode from "./ShowEpisode";
+import {ContentEditableEvent} from "./ShowEpisode";
 export default class EpisodeEdit extends Component {
   add = e => {
     e.preventDefault();
@@ -26,19 +26,25 @@ export default class EpisodeEdit extends Component {
     return edit(action);
   };
   render() {
-    const { id, episode, edit } = this.props;
-    const spanStyle = {
-      minWidth: "30px",
-      display: "inline-block",
-      textAlign: "center"
-    };
+    const { id, episode, edit, totalEps, options } = this.props;
     return (
       <div>
         <IconButton onClick={this.subtract} disabled={!id} color="primary">
           <Icon>remove_circle</Icon>
         </IconButton>
-        {/* <span style={spanStyle}>{episode}</span> */}
-        <ShowEpisode id={id} episode={episode} edit={edit} />
+        <ContentEditableEvent id={id} value={episode} edit={edit} action="episode" placeholder="1"/>
+        {
+          options.totalEps && totalEps &&<span>/</span>
+        }
+        {
+          options.totalEps && totalEps && <ContentEditableEvent 
+          id={id} 
+          value={totalEps} 
+          edit={edit} 
+          action="totalEps" 
+          placeholder=""/>
+        }
+        
         <IconButton onClick={this.add} disabled={!id} color="primary">
           <Icon>add_circle</Icon>
         </IconButton>

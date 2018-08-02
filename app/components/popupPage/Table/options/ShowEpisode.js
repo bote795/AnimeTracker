@@ -1,30 +1,25 @@
 import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
-export default class ShowEpisode extends Component {
-  episodeChange = e => {
+export class ContentEditableEvent extends Component {
+  handleChange = e => {
     //TODO: Validate that this is a number 
-    const { id, edit } = this.props;
-    const action = {
-      type: "episode",
+    const { id, edit, action } = this.props;
+    const body = {
+      type: action,
       id,
       value: e.target.value
     };
-    return edit(action);
+    return edit(body);
   };
   render() {
-    const spanStyle = {
-      minWidth: "30px",
-      display: "inline-block",
-      textAlign: "center"
-    };
-    const { episode } = this.props;
+    const { value, placeholder } = this.props;
     return (
       <ContentEditable
         className="episode-content-editable"
-        placeholder={"1"}
-        html={episode || ""} // innerHTML of the editable div
+        placeholder={placeholder}
+        html={value || ""} // innerHTML of the editable div
         disabled={false} // use true to disable edition
-        onChange={this.episodeChange} // handle innerHTML change
+        onChange={this.handleChange} // handle innerHTML change
       />
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
-export class ContentEditableEvent extends Component {
+export default class ContentEditableEvent extends Component {
   handleChange = e => {
     //TODO: Validate that this is a number 
     const { id, edit, action } = this.props;

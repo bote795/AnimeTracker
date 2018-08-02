@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-import {ContentEditableEvent} from "./ShowEpisode";
+import ContentEditableEvent from "./ShowEpisode";
 export default class EpisodeEdit extends Component {
   add = e => {
     e.preventDefault();
@@ -32,19 +32,25 @@ export default class EpisodeEdit extends Component {
         <IconButton onClick={this.subtract} disabled={!id} color="primary">
           <Icon>remove_circle</Icon>
         </IconButton>
-        <ContentEditableEvent id={id} value={episode} edit={edit} action="episode" placeholder="1"/>
-        {
-          options.totalEps && totalEps &&<span>/</span>
-        }
-        {
-          options.totalEps && totalEps && <ContentEditableEvent 
-          id={id} 
-          value={totalEps} 
-          edit={edit} 
-          action="totalEps" 
-          placeholder=""/>
-        }
-        
+        <ContentEditableEvent
+          id={id}
+          value={episode}
+          edit={edit}
+          action="episode"
+          placeholder="1"
+        />
+        {options.totalEps && totalEps && <span>/</span>}
+        {options.totalEps &&
+          totalEps && (
+            <ContentEditableEvent
+              id={id}
+              value={totalEps}
+              edit={edit}
+              action="totalEps"
+              placeholder=""
+            />
+          )}
+
         <IconButton onClick={this.add} disabled={!id} color="primary">
           <Icon>add_circle</Icon>
         </IconButton>

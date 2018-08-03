@@ -18,6 +18,7 @@
     "axios": "^0.18.0",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
+    "ramda": "^0.25.0",
     "react-contenteditable": "^2.1.0",
     "react-router-dom": "^4.3.1",
     "uuid": "^3.3.2"

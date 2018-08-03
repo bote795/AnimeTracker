@@ -1,8 +1,18 @@
 import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
+import PropTypes from "prop-types";
+
 export default class ContentEditableEvent extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    edit: PropTypes.func.isRequired
+  };
+
   handleChange = e => {
-    //TODO: Validate that this is a number 
+    //TODO: Validate that this is a number
     const { id, edit, action } = this.props;
     const body = {
       type: action,

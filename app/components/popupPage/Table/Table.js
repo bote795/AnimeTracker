@@ -10,6 +10,7 @@ import uuid from "uuid/v4";
 
 import AnimeEntry from "./AnimeEntry";
 import AddEntry from "./AddEntry";
+import User from '../../../util/Services/User';
 const styles = theme => ({
   root: {
     width: "100%",
@@ -34,12 +35,28 @@ class AnimeTable extends React.Component {
       { name: "test2", id: uuid(), episode: "400" },
       { name: "test2", id: uuid(), episode: "40", time: "12:00" }
     ],
-    options: {
-      timeElapsed: false,
-      totalEps: false
-    }
+   
+    user: {
+      options: {
+        timeElapsed: false,
+        totalEps: false
+      }
+    },
+    loading: false
   };
+  componentDidMount() {
+    this.getUser();
+  }
 
+  getUser = async () => {
+    this.setState(() => ({ loading: true }));
+    const user  = await User.get();
+    console.log("This is the user %O", user);
+    this.setState(() => ({
+      loading: false,
+      user
+    }));
+  };
   editAnime(state = [], action) {
     switch (action.type) {
       case "add":
@@ -92,7 +109,8 @@ class AnimeTable extends React.Component {
     const ANIME_NAME = browser.i18n.getMessage("appAnimeName");
     const EPISODE = browser.i18n.getMessage("appEpisode");
     const TIME_LAPS = browser.i18n.getMessage("appTimeLaps");
-    const { animeList, options } = this.state;
+    const { animeList, user } = this.state;
+    const { options }= user; 
     const { timeElapsed } = options;
     const { classes } = this.props;
 

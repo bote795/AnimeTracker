@@ -18,7 +18,7 @@ import Settings from "../Settings";
 import Support from "../Support";
 
 String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
+  return this.charAt(0).toUpperCase() + this.slice(1);
 };
 const drawerWidth = 240;
 
@@ -61,7 +61,7 @@ class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false
   };
-
+  
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
@@ -76,16 +76,15 @@ class ResponsiveDrawer extends React.Component {
         <NavListItems />
       </div>
     );
-    const header = ({match}) => {
-        const {tabId} = match.params;
-        const TITLE = browser.i18n.getMessage(`settingsTitle${tabId.capitalize()}`);
-    
-        return (
-          <p>{TITLE}</p>
-        )
-    }
-    const TITLE_SETTINGS = browser.i18n.getMessage("settingsTitleSettings");
+    const header = ({ match }) => {
+      const { tabId } = match.params;
+      const TITLE = browser.i18n.getMessage(
+        `settingsTitle${tabId.capitalize()}`
+      );
 
+      return <p>{TITLE}</p>;
+    };
+    const TITLE_SETTINGS = browser.i18n.getMessage("settingsTitleSettings");
 
     return (
       <div className={classes.root}>
@@ -100,14 +99,10 @@ class ResponsiveDrawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" noWrap>
-            <Switch>
+              <Switch>
                 <Route path="/:tabId" component={header} />
-                <Route
-                exact
-                path="/"
-                render={() => <p>{TITLE_SETTINGS}</p> }
-                />
-            </Switch>    
+                <Route exact path="/" render={() => <p>{TITLE_SETTINGS}</p>} />
+              </Switch>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -140,13 +135,13 @@ class ResponsiveDrawer extends React.Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          
-            <Switch>
-                <Route exact path="/" component={Settings} />
-                <Route exact path="/feedback" component={Feedback} />
-                <Route exact path="/support" component={Support} />
-                <Route render={() => <p>Not Found</p>} />
-            </Switch>
+
+          <Switch>
+            <Route exact path="/" component={Settings} />
+            <Route exact path="/feedback" component={Feedback} />
+            <Route exact path="/support" component={Support} />
+            <Route render={() => <p>Not Found</p>} />
+          </Switch>
         </main>
       </div>
     );

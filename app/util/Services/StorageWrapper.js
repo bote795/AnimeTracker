@@ -1,4 +1,4 @@
-import {isEmpty} from 'ramda';
+import { isEmpty } from "ramda";
 export default class StorageWrapper {
   key = "";
   default = {};
@@ -8,23 +8,23 @@ export default class StorageWrapper {
     this.default = defaultObj;
   }
   get() {
-    if(isEmpty(this.cache)){
-        return Promise.resolve(cache);
+    if (!isEmpty(this.cache)) {
+      return Promise.resolve(this.cache);
     }
-    return chrome.storage.sync
-      .get({[this.key]: this.defaultObj})
+    return browser.storage.sync
+      .get({ [this.key]: this.default })
       .then(data => {
-        this.cache = data;
-        return data;
+        this.cache = data[this.key];
+        return this.cache;
       })
       .catch(err => {
         console.warn(err);
         return err;
       });
   }
-  save(obj) {
+  save(obj, key) {
     return browser.storage.sync
-      .set({[this.key]: obj})
+      .set({ [key || this.key]: obj })
       .then(data => {
         this.cache = data;
         return data;

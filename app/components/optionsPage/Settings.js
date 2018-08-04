@@ -7,7 +7,8 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Switch from "@material-ui/core/Switch";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from "@material-ui/core/LinearProgress";
+import User from "../../util/Services/User";
 
 const styles = theme => ({
   root: {
@@ -20,15 +21,37 @@ const styles = theme => ({
 
 class Settings extends Component {
   state = {
-    checked: ["tab"],
-    loading: false
+    checked: ["newTab"],
+    loading: false,
+    user: null
   };
+  componentDidMount() {
+    this.getUser();
+  }
+
+  getUser = async () => {
+    this.setState(() => ({ loading: true }));
+    const user  = await User.get();
+    const checked = Object.keys(user.options)
+    .map(val => {
+      if (user.options[val]) return val;
+    })
+    .filter((val) => val);
+
+    this.setState(() => ({
+      checked,
+      loading: false,
+      user
+    }));
+  };
+
   toggleLoading = () => {
-    const {loading} = this.state;
+    const { loading } = this.state;
     this.setState({
       loading: !loading
     });
-  }
+  };
+
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -39,15 +62,22 @@ class Settings extends Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
-    this.setState({
-      checked: newChecked
-    });
-    setTimeout(() => {
-      this.toggleLoading();
-  }, 500);
-
     
+    let {user} = this.state;
+    user.options[value] = !user.options[value];
+    
+    this.toggleLoading()
+    User.save(user).then(() => {
+      this.toggleLoading()
+      this.setState({
+        checked: newChecked, 
+        user
+      });
+    });
+    
+    // setTimeout(() => {
+    //   this.toggleLoading();
+    // }, 500);
   };
 
   render() {
@@ -65,12 +95,12 @@ class Settings extends Component {
             <ListItemText primary={NEW_TAB} />
             <ListItemSecondaryAction>
               <Switch
-                onChange={this.handleToggle("tab")}
-                checked={this.state.checked.indexOf("tab") !== -1}
+                onChange={this.handleToggle("newTab")}
+                checked={this.state.checked.indexOf("newTab") !== -1}
               />
             </ListItemSecondaryAction>
           </ListItem>
-          
+
           <ListItem>
             <ListItemText primary={TOTAL_EP_COUNT} />
             <ListItemSecondaryAction>
@@ -80,17 +110,16 @@ class Settings extends Component {
               />
             </ListItemSecondaryAction>
           </ListItem>
-          
+
           <ListItem>
             <ListItemText primary={TIME_ELAPSED} />
             <ListItemSecondaryAction>
               <Switch
-                onChange={this.handleToggle("time")}
-                checked={this.state.checked.indexOf("time") !== -1}
+                onChange={this.handleToggle("timeElapsed")}
+                checked={this.state.checked.indexOf("timeElapsed") !== -1}
               />
             </ListItemSecondaryAction>
           </ListItem>
-
         </List>
       </div>
     );

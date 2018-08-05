@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 export default class ContentEditableEvent extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,

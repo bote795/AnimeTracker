@@ -9,7 +9,7 @@ export const KISTU = "KISTU";
 export const TIME_ELAPSED = "timeElapsed";
 export const TOTAL_EPISODES = "totalEps";
 export const NEW_TAB = "newTab";
-const defaultVal = {
+export const defaultVal = {
     provider: {
       type: NONE,
       token: {

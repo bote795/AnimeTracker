@@ -11,6 +11,7 @@ import uuid from "uuid/v4";
 import AnimeEntry from "./AnimeEntry";
 import AddEntry from "./AddEntry";
 import User from '../../../util/Services/User';
+import Series from '../../../util/Services/Series';
 const styles = theme => ({
   root: {
     width: "100%",
@@ -24,17 +25,7 @@ const styles = theme => ({
 class AnimeTable extends React.Component {
   state = {
     //TODO: in memory use epsiode as string then on save save it as number
-    animeList: [
-      { name: "test", id: uuid(), episode: "4000" },
-      { name: "test the cool kids blah blah", id: uuid(), episode: "4" },
-      { name: "test2", id: uuid(), episode: "400" },
-      { name: "test2", id: uuid(), episode: "400", totalEps: "100" },
-      { name: "test2", id: uuid(), episode: "400" },
-      { name: "test2", id: uuid(), episode: "400" },
-      { name: "test2", id: uuid(), episode: "400" },
-      { name: "test2", id: uuid(), episode: "400" },
-      { name: "test2", id: uuid(), episode: "40", time: "12:00" }
-    ],
+    animeList: [],
    
     user: {
       options: {
@@ -45,16 +36,18 @@ class AnimeTable extends React.Component {
     loading: false
   };
   componentDidMount() {
-    this.getUser();
+    this.getData();
   }
-
-  getUser = async () => {
+  getData = async () => {
     this.setState(() => ({ loading: true }));
     const user  = await User.get();
+    const animeList = await Series.get();
     console.log("This is the user %O", user);
+    console.log("This is the animeList %O", animeList);
     this.setState(() => ({
       loading: false,
-      user
+      user,
+      animeList
     }));
   };
   editAnime(state = [], action) {
@@ -98,10 +91,13 @@ class AnimeTable extends React.Component {
         ];
     }
   }
-  onEdit = action => {
+  onEdit = async action => {
+    this.setState(() => ({ loading: true }));
     const animeList = this.editAnime(this.state.animeList, action);
+    await Series.save(animeList)
     this.setState(() => ({
-      animeList
+      animeList,
+      loading: false
     }));
   };
   render() {
@@ -109,7 +105,7 @@ class AnimeTable extends React.Component {
     const ANIME_NAME = browser.i18n.getMessage("appAnimeName");
     const EPISODE = browser.i18n.getMessage("appEpisode");
     const TIME_LAPS = browser.i18n.getMessage("appTimeLaps");
-    const { animeList, user } = this.state;
+    const { animeList, user, loading } = this.state;
     const { options }= user; 
     const { timeElapsed } = options;
     const { classes } = this.props;
@@ -117,6 +113,8 @@ class AnimeTable extends React.Component {
     return (
       <div>
         <Paper className={classes.root}>
+        {
+          !loading ? 
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -131,16 +129,20 @@ class AnimeTable extends React.Component {
             </TableHead>
             <TableBody>
               <AddEntry edit={this.onEdit} options={options} />
-              {animeList.map(anime => (
-                <AnimeEntry
-                  key={anime.id}
-                  animelist={anime}
-                  edit={this.onEdit}
-                  options={options}
-                />
-              ))}
+              {
+                animeList.map(anime => (
+                  <AnimeEntry
+                    key={anime.id}
+                    animelist={anime}
+                    edit={this.onEdit}
+                    options={options}
+                  />
+                )
+              )}
             </TableBody>
-          </Table>
+          </Table> :
+          <span>Loading</span>
+        }
         </Paper>
       </div>
     );

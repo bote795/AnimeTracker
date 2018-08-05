@@ -1,8 +1,8 @@
 import StorageWrapper from "./StorageWrapper";
+export const defaultVal = [];
 
-export default class Series extends StorageWrapper {
+ class Series extends StorageWrapper {
   constructor() {
-    const defaultVal = [];
     super("series", defaultVal);
   }
   /**
@@ -15,6 +15,8 @@ export default class Series extends StorageWrapper {
    * @param {String} Series.totalEps  total episodes of series
    */
   add(item){
-      return this.save(item);
+      return this.save([...this.cachem, item]);
   }
 }
+const series = new Series();
+export default series;

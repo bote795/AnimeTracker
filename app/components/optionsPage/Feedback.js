@@ -68,46 +68,46 @@ class Feedback extends Component {
 
     return (
       <div>
-       <SharedLoadingConsumer>
-        {({ toggleLoadingBar }) => (
-        <form className={classes.root} autoComplete="off">
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="type-simple">Type</InputLabel>
-            <Select
-              required={true}
-              value={this.state.type}
-              onChange={this.handleChange}
-              inputProps={{
-                name: "type",
-                id: "type-simple"
-              }}
-            >
-              <MenuItem value={'bug'}>{OPTION_BUG}</MenuItem>
-              <MenuItem value={'feature'}>{OPTION_FEATURE}</MenuItem>
-              <MenuItem value={'comment'}>{OPTION_COMMENT}</MenuItem>
-            </Select>
-            
-            <TextField
-              label="Comment"
-              multiline={true}
-              onChange={this.handleChange}
-              value={this.state.body}
-              inputProps={{
-                name: "body"
-              }}
-              rows={5}
-              rowsMax={5}
-              fullWidth={true}
-              required={true}
-              className={classes.textInput}
-            />
-          <Button disabled={!this.allowButton()} onClick={() => this.handleSubmit(toggleLoadingBar)} ariant="contained" color="primary" className={classes.button}>
-            Send
-            <Icon className={classes.rightIcon}>{BUTTON_SEND}</Icon>
-          </Button>
-          </FormControl>
-        </form>
-        )}
+        <SharedLoadingConsumer>
+          {({ toggleLoadingBar }) => (
+            <form className={classes.root} autoComplete="off">
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="type-simple">Type</InputLabel>
+                <Select
+                  required={true}
+                  value={this.state.type}
+                  onChange={this.handleChange}
+                  inputProps={{
+                    name: "type",
+                    id: "type-simple"
+                  }}
+                >
+                  <MenuItem value={'bug'}>{OPTION_BUG}</MenuItem>
+                  <MenuItem value={'feature'}>{OPTION_FEATURE}</MenuItem>
+                  <MenuItem value={'comment'}>{OPTION_COMMENT}</MenuItem>
+                </Select>
+                
+                <TextField
+                  label="Comment"
+                  multiline={true}
+                  onChange={this.handleChange}
+                  value={this.state.body}
+                  inputProps={{
+                    name: "body"
+                  }}
+                  rows={5}
+                  rowsMax={5}
+                  fullWidth={true}
+                  required={true}
+                  className={classes.textInput}
+                />
+              <Button disabled={!this.allowButton()} onClick={() => this.handleSubmit(toggleLoadingBar)} ariant="contained" color="primary" className={classes.button}>
+                {BUTTON_SEND}
+                <Icon className={classes.rightIcon}>{BUTTON_SEND}</Icon>
+              </Button>
+              </FormControl>
+            </form>
+          )}
         </SharedLoadingConsumer>
       </div>
     );

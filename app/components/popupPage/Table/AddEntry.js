@@ -16,6 +16,8 @@ export default class AddEntry extends Component {
           name: action.value
         });
       case "episode":
+        console.log("episode ", action.value);
+
         return Object.assign({}, anime, {
           episode: String(action.value)
         });
@@ -44,6 +46,7 @@ export default class AddEntry extends Component {
         animelist={anime}
         edit={this.onEdit}
         options={options}
+        disableInputs={false}
       />
     );
   }

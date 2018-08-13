@@ -10,8 +10,8 @@ import uuid from "uuid/v4";
 
 import AnimeEntry from "./AnimeEntry";
 import AddEntry from "./AddEntry";
-import User from '../../../util/Services/User';
-import Series from '../../../util/Services/Series';
+import User from "../../../util/Services/User";
+import Series from "../../../util/Services/Series";
 const styles = theme => ({
   root: {
     width: "100%",
@@ -26,7 +26,7 @@ class AnimeTable extends React.Component {
   state = {
     //TODO: in memory use epsiode as string then on save save it as number
     animeList: [],
-   
+
     user: {
       options: {
         timeElapsed: false,
@@ -40,7 +40,7 @@ class AnimeTable extends React.Component {
   }
   getData = async () => {
     this.setState(() => ({ loading: true }));
-    const user  = await User.get();
+    const user = await User.get();
     const animeList = await Series.get();
     console.log("This is the user %O", user);
     console.log("This is the animeList %O", animeList);
@@ -94,7 +94,8 @@ class AnimeTable extends React.Component {
   onEdit = async action => {
     this.setState(() => ({ loading: true }));
     const animeList = this.editAnime(this.state.animeList, action);
-    await Series.save(animeList)
+    //if(action !== 'episode')
+    await Series.save(animeList);
     this.setState(() => ({
       animeList,
       loading: false
@@ -106,43 +107,40 @@ class AnimeTable extends React.Component {
     const EPISODE = browser.i18n.getMessage("appEpisode");
     const TIME_LAPS = browser.i18n.getMessage("appTimeLaps");
     const { animeList, user, loading } = this.state;
-    const { options }= user; 
+    const { options } = user;
     const { timeElapsed } = options;
     const { classes } = this.props;
 
     return (
       <div>
         <Paper className={classes.root}>
-        {
-          !loading ? 
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="none" />
-                <TableCell>{ANIME_NAME}</TableCell>
-                <TableCell style={divStyle}>{EPISODE}</TableCell>
-                {timeElapsed && (
-                  <TableCell padding="none">{TIME_LAPS}</TableCell>
-                )}
-                <TableCell padding="none" />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <AddEntry edit={this.onEdit} options={options} />
-              {
-                animeList.map(anime => (
+          {
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell padding="none" />
+                  <TableCell>{ANIME_NAME}</TableCell>
+                  <TableCell style={divStyle}>{EPISODE}</TableCell>
+                  {timeElapsed && (
+                    <TableCell padding="none">{TIME_LAPS}</TableCell>
+                  )}
+                  <TableCell padding="none" />
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <AddEntry edit={this.onEdit} options={options} />
+                {animeList.map(anime => (
                   <AnimeEntry
                     key={anime.id}
                     animelist={anime}
                     edit={this.onEdit}
                     options={options}
+                    disableInputs={true}
                   />
-                )
-              )}
-            </TableBody>
-          </Table> :
-          <span>Loading</span>
-        }
+                ))}
+              </TableBody>
+            </Table>
+          }
         </Paper>
       </div>
     );

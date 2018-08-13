@@ -27,6 +27,8 @@ export default class EpisodeEdit extends Component {
   };
   render() {
     const { id, episode, edit, totalEps, options } = this.props;
+    let { disableInputs } = this.props;
+
     return (
       <div>
         <IconButton onClick={this.subtract} disabled={!id} color="primary">
@@ -38,6 +40,7 @@ export default class EpisodeEdit extends Component {
           edit={edit}
           action="episode"
           placeholder="1"
+          disabled={disableInputs}
         />
         {options.totalEps && totalEps && <span>/</span>}
         {options.totalEps &&
@@ -48,6 +51,7 @@ export default class EpisodeEdit extends Component {
               edit={edit}
               action="totalEps"
               placeholder=""
+              disabled={disableInputs}
             />
           )}
 

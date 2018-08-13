@@ -53,7 +53,7 @@ class Popup extends Component {
   Body = withStyles(this.styles)(this.div);
 
   render() {
-    const { open } = this.props;    
+    const { open } = this.props;
     return (
       <div>
         <Modal

@@ -9,7 +9,7 @@ import Options from "./options/Options";
 import EpisodeEdit from "./options/EpisodeEdit";
 import DeleteEntry from "./options/DeleteEntry";
 
-export default function AnimeEntry({ animelist, edit, options }) {
+export default function AnimeEntry({ animelist, edit, options, disableInputs }) {
   let nameChange = e => {
     const { id } = animelist;
     const action = {
@@ -43,6 +43,7 @@ export default function AnimeEntry({ animelist, edit, options }) {
   };
   const ANIME_NAME = browser.i18n.getMessage("appEditAnimeInputName");
   const { name, episode, id, time, totalEps } = animelist;
+  disableInputs = disableInputs || false;
   const divStyle = { width: "150px" };
   let icon;
   if (!id) {
@@ -64,12 +65,12 @@ export default function AnimeEntry({ animelist, edit, options }) {
         <ContentEditable
           placeholder={ANIME_NAME}
           html={name || ""} 
-          disabled={false} 
           onChange={fieldChange("name")} 
+          disabled={disableInputs}
         />
       </TableCell>
       <TableCell padding="none" style={divStyle}>
-        <EpisodeEdit id={id} options={options} totalEps={totalEps} episode={episode} edit={edit} />
+        <EpisodeEdit disableInputs={disableInputs} id={id} options={options} totalEps={totalEps} episode={episode} edit={edit} />
       </TableCell>
       {options.timeElapsed && (
         <TableCell padding="none">

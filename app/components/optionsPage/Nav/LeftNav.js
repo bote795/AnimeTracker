@@ -85,6 +85,11 @@ class ResponsiveDrawer extends React.Component {
 
       return <p>{TITLE}</p>;
     };
+    const wrapperContext = (value) => (
+      <SharedLoadingProvider>
+        {value}
+      </SharedLoadingProvider>
+    )
     const TITLE_SETTINGS = browser.i18n.getMessage("settingsTitleSettings");
 
     return (
@@ -142,7 +147,6 @@ class ResponsiveDrawer extends React.Component {
               <Route exact path="/" component={Settings} />
               <Route exact path="/feedback" component={Feedback} />
               <Route exact path="/support" component={Support} />
-              <Route render={() => <p>Not Found</p>} />
             </SharedLoadingProvider>
 
           </Switch>

@@ -11,6 +11,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Divider from "@material-ui/core/Divider";
 import MenuIcon from "@material-ui/icons/Menu";
 import { MemoryRouter as Router, Route, Switch } from "react-router-dom";
+import { SharedLoadingProvider } from '../../sharedComponents/Loading.context';
 
 import NavListItems from "./Nav";
 import Feedback from "../Feedback";
@@ -137,10 +138,13 @@ class ResponsiveDrawer extends React.Component {
           <div className={classes.toolbar} />
 
           <Switch>
-            <Route exact path="/" component={Settings} />
-            <Route exact path="/feedback" component={Feedback} />
-            <Route exact path="/support" component={Support} />
-            <Route render={() => <p>Not Found</p>} />
+            <SharedLoadingProvider>
+              <Route exact path="/" component={Settings} />
+              <Route exact path="/feedback" component={Feedback} />
+              <Route exact path="/support" component={Support} />
+              <Route render={() => <p>Not Found</p>} />
+            </SharedLoadingProvider>
+
           </Switch>
         </main>
       </div>

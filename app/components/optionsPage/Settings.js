@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Switch from "@material-ui/core/Switch";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import User from "../../util/Services/User";
+import { SharedLoadingConsumer } from "../sharedComponents/Loading.context";
 
 const styles = theme => ({
   root: {
@@ -22,7 +21,6 @@ const styles = theme => ({
 class Settings extends Component {
   state = {
     checked: ["newTab"],
-    loading: false,
     user: null
   };
   componentDidMount() {
@@ -30,26 +28,24 @@ class Settings extends Component {
   }
 
   getUser = async () => {
-    this.setState(() => ({ loading: true }));
-    const user  = await User.get();
+    this.toggleLoading();
+    const user = await User.get();
     const checked = Object.keys(user.options)
-    .map(val => {
-      if (user.options[val]) return val;
-    })
-    .filter((val) => val);
+      .map(val => {
+        if (user.options[val]) return val;
+      })
+      .filter(val => val);
 
     this.setState(() => ({
       checked,
-      loading: false,
       user
     }));
+    this.toggleLoading();
   };
 
   toggleLoading = () => {
-    const { loading } = this.state;
-    this.setState({
-      loading: !loading
-    });
+    const { toggleLoadingBar } = this.props;
+    toggleLoadingBar();
   };
 
   handleToggle = value => () => {
@@ -62,34 +58,27 @@ class Settings extends Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    
-    let {user} = this.state;
+
+    let { user } = this.state;
     user.options[value] = !user.options[value];
-    
-    this.toggleLoading()
+
+    this.toggleLoading();
     User.save(user).then(() => {
-      this.toggleLoading()
+      this.toggleLoading();
       this.setState({
-        checked: newChecked, 
+        checked: newChecked,
         user
       });
     });
-    
-    // setTimeout(() => {
-    //   this.toggleLoading();
-    // }, 500);
   };
 
   render() {
-    const { classes } = this.props;
-    const { loading } = this.state;
     const NEW_TAB = browser.i18n.getMessage("settingsNewTab");
     const TOTAL_EP_COUNT = browser.i18n.getMessage("settingsTotalEpCount");
     const TIME_ELAPSED = browser.i18n.getMessage("settingsTimeElapsed");
     //TODO: add hover popup for each item
     return (
-      <div className={classes.root}>
-        {loading && <LinearProgress />}
+      <div>
         <List>
           <ListItem>
             <ListItemText primary={NEW_TAB} />
@@ -121,13 +110,39 @@ class Settings extends Component {
             </ListItemSecondaryAction>
           </ListItem>
         </List>
+     </div>
+    );
+  }
+}
+
+class SettingsContext extends Component {
+  render() {
+    return (
+      <div>
+        <SharedLoadingConsumer>
+          {({ toggleLoadingBar }) => (
+            <Settings toggleLoadingBar={toggleLoadingBar} />
+          )}
+        </SharedLoadingConsumer>
       </div>
     );
   }
 }
 
-Settings.propTypes = {
+class SettingsClasses extends Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <SettingsContext/>
+      </div>
+    )
+  }
+}
+
+
+SettingsClasses.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Settings);
+export default withStyles(styles)(SettingsClasses);

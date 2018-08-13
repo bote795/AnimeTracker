@@ -11,6 +11,7 @@ import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField'
 import postFeedback from './../../util/feedback';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { SharedLoadingConsumer } from "../sharedComponents/Loading.context";
 
 const styles = theme => ({
   root: {
@@ -31,22 +32,15 @@ class Feedback extends Component {
   state = {
     type: 'bug',
     body: "",
-    loading: false
   };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  toggleLoading = () => {
-    const {loading} = this.state;
-    this.setState({
-      loading: !loading
-    });
-  }
-  handleSubmit = async () =>{
+  handleSubmit = async (toggleLoadingBar) =>{
     const { type, body } = this.state;
     console.log(this.state);
-    this.toggleLoading();
+    toggleLoadingBar();
 
     try {
       const repos = await postFeedback(type, body);
@@ -58,7 +52,7 @@ class Feedback extends Component {
     catch(e){
       console.warn(e);
     }
-    this.toggleLoading();
+    toggleLoadingBar();
 }
   allowButton = () => {
     const { type, body} = this.state;
@@ -74,44 +68,47 @@ class Feedback extends Component {
 
     return (
       <div>
-        {loading && <LinearProgress />}
-      <form className={classes.root} autoComplete="off">
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="type-simple">Type</InputLabel>
-          <Select
-            required={true}
-            value={this.state.type}
-            onChange={this.handleChange}
-            inputProps={{
-              name: "type",
-              id: "type-simple"
-            }}
-          >
-            <MenuItem value={'bug'}>{OPTION_BUG}</MenuItem>
-            <MenuItem value={'feature'}>{OPTION_FEATURE}</MenuItem>
-            <MenuItem value={'comment'}>{OPTION_COMMENT}</MenuItem>
-          </Select>
-          
-          <TextField
-            label="Comment"
-            multiline={true}
-            onChange={this.handleChange}
-            value={this.state.body}
-            inputProps={{
-              name: "body"
-            }}
-            rows={5}
-            rowsMax={5}
-            fullWidth={true}
-            required={true}
-            className={classes.textInput}
-          />
-        <Button disabled={!this.allowButton()} onClick={this.handleSubmit} ariant="contained" color="primary" className={classes.button}>
-          Send
-          <Icon className={classes.rightIcon}>{BUTTON_SEND}</Icon>
-        </Button>
-        </FormControl>
-      </form>
+       <SharedLoadingConsumer>
+        {({ toggleLoadingBar }) => (
+        <form className={classes.root} autoComplete="off">
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="type-simple">Type</InputLabel>
+            <Select
+              required={true}
+              value={this.state.type}
+              onChange={this.handleChange}
+              inputProps={{
+                name: "type",
+                id: "type-simple"
+              }}
+            >
+              <MenuItem value={'bug'}>{OPTION_BUG}</MenuItem>
+              <MenuItem value={'feature'}>{OPTION_FEATURE}</MenuItem>
+              <MenuItem value={'comment'}>{OPTION_COMMENT}</MenuItem>
+            </Select>
+            
+            <TextField
+              label="Comment"
+              multiline={true}
+              onChange={this.handleChange}
+              value={this.state.body}
+              inputProps={{
+                name: "body"
+              }}
+              rows={5}
+              rowsMax={5}
+              fullWidth={true}
+              required={true}
+              className={classes.textInput}
+            />
+          <Button disabled={!this.allowButton()} onClick={() => this.handleSubmit(toggleLoadingBar)} ariant="contained" color="primary" className={classes.button}>
+            Send
+            <Icon className={classes.rightIcon}>{BUTTON_SEND}</Icon>
+          </Button>
+          </FormControl>
+        </form>
+        )}
+        </SharedLoadingConsumer>
       </div>
     );
   }

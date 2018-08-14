@@ -16,7 +16,6 @@ export default class ContentEditableEvent extends Component {
     //TODO: Validate that this is a number
     const { id, edit, action } = this.props;
     if (e.target.value.match(/^\d*$/) != null) {
-      console.log("it matches");
       const body = {
         type: action,
         id,

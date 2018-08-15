@@ -89,6 +89,8 @@ class AnimeTable extends React.Component {
           },
           ...state
         ];
+      default:
+        return state;
     }
   }
   onEdit = async action => {
